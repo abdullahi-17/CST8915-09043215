@@ -1,4 +1,4 @@
-# CST8915 Lab 2: Algonquin Pet Store Part 2
+# CST8915 Lab 3 – Algonquin Pet Store Part 3
 
 **Student Name**: Abdullahi Omer
 **Student ID**: 09043215
@@ -9,11 +9,11 @@
 
 ## Demo Video
 
-🎥 [Watch Demo Video](https://youtu.be/2liZb03qPic)
+🎥 [Watch Demo Video](https://youtu.be/xK9cr06UFc4)
 
 ---
 
-## Repositories
+## Service Repositories
 
 [Product Service Repository](https://github.com/abdullahi-17/product-service.git)
 
@@ -21,26 +21,24 @@
 
 [Store Front Repository](https://github.com/abdullahi-17/store-front.git)
 
+---
+
 ## Reflection Questions
 
-### Configuration Changes
+### 1. What challenges did you encounter when configuring environment variables in the GitHub Actions workflow?
 
-For the order-service and product-service, I moved configuration values such as ports and the RabbitMQ connection string into environment variables instead of keeping them directly in the code. I used .env files locally and added .env.example files to show the required variables without exposing actual values. For the Backing Services factor, I configured the order-service to connect to RabbitMQ through an environment variable, allowing RabbitMQ to run independently on its own VM instead of being tied directly to the application.
+One challenge I had was making sure the environment variables had the correct URLs and formatting. For example, the frontend needed the base URLs for the product and order services without `/products` or `/orders` at the end because those paths were already added in the Vue code. I also had to restart the application after changing the variables so the new values would be loaded.
 
-### Environment Variables
+### 2. How does deploying microservices on Azure Web App Service differ from running them locally?
 
-Environment variables are important because they keep configuration separate from the application code. This allows the same code to run in different environments, such as development or production, without having to modify the source code. It also prevents sensitive information, such as passwords and connection strings, from being hard-coded and potentially committed to GitHub.
+Running the services locally was simpler because I could use localhost and start each service directly from the terminal. On Azure App Service, I had to configure things like environment variables, startup commands, ports, and GitHub deployment. I also had to make sure the deployed services could communicate with each other over their public URLs instead of localhost.
 
-### Separate Repositories
+### 3. Why is it important to use environment variables for configurations in a cloud environment?
 
-Having a separate repository for each microservice allows each service to be developed, updated, tested, and deployed independently. A change to the product-service, for example, does not require rebuilding or redeploying the order-service. This makes the application easier to maintain and allows individual services to be scaled or changed based on their own requirements.
+Environment variables keep configuration values separate from the application code. This makes it easier to use different settings when moving between local development and Azure without changing the code each time. It is also useful for values such as service URLs and connection strings because they can be updated directly in the cloud environment instead of being hard-coded into the application.
 
----
+## Setup Notes
 
-## Challenges and Learnings (Optional)
+The original lab required the `store-front` to be deployed using Azure Static Web Apps. My Azure for Students subscription had a policy restriction that prevented me from creating a Static Web App in the available regions. Based on the alternative provided by the professor, I deployed the Vue `store-front` on an Azure VM instead.
 
----
-
-## Acknowledgments
-
-[Optional: Credit any resources, documentation, or people who helped you]
+The `product-service` and `order-service` were deployed using Azure App Service. RabbitMQ was hosted on a separate Azure VM. The store front communicates with both App Services, and orders submitted through the application are sent to the RabbitMQ `order_queue`.

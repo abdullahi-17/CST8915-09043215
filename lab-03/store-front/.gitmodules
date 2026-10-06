@@ -1,9 +1,0 @@
-[submodule "product-service"]
-	path = product-service
-	url = https://github.com/abdullahi-17/product-service.git
-[submodule "order-service"]
-	path = order-service
-	url = https://github.com/abdullahi-17/order-service.git
-[submodule "store-front"]
-	path = store-front
-	url = https://github.com/abdullahi-17/store-front.git

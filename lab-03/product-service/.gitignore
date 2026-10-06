@@ -1,7 +1,0 @@
-/target
-.env
-.env.*
-!.env.examplevenv/
-.env
-venv/
-.env
